@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Change Password</title>
+</head>
+<body>
+    <h1>Change Password</h1>
+    
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <ul class="flashes">
+                {% for message in messages %}
+                    <li>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
+
+    <form action="{{ url_for('mod_user.do_chpasswd') }}" method="POST">
+        <label for="password">New Password:</label>
+        <input type="password" id="password" name="password" required><br>
+
+        <label for="password_again">Confirm New Password:</label>
+        <input type="password" id="password_again" name="password_again" required><br>
+
+        <input type="submit" value="Change Password">
+    </form>
+</body>
+</html>

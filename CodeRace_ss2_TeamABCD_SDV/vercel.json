@@ -1,0 +1,14 @@
+{
+    "builds": [
+        {
+            "src": "Round_4/server.py",
+            "use": "@vercel/python"
+        }
+    ],
+    "routes": [
+        {
+            "src": "/(.*)",
+            "dest": "Round_4/server.py"
+        }
+    ]
+}

@@ -1,0 +1,44 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+# Pull Request Triggers (triggers the pipeline whenever a pull request is opened with the specified target branches)
+trigger: none
+
+pr:
+  branches:
+    include:
+    - main
+    - ABCD
+  paths:
+    exclude: # file paths which will not trigger a build
+    - README.md
+    - .gitignore
+
+pool:
+  vmImage: ubuntu-latest
+
+steps:
+- script: echo Hello, ABCD Team!
+  displayName: 'Run a one-line script'
+
+- script: |
+    apt-get update -y
+    apt-get upgrade -y
+  displayName: 'Upgrade system'
+
+- script: pip install -r requirements.txt
+  displayName: 'Install requirements'
+
+- script: pip install bandit safety 
+  displayName: 'Install test unit'
+
+- script: bandit -r .
+  displayName: 'Test vulnerability'
+
+- script: safety check
+  displayName: 'Test dependencies vulnerabilities'
+
+- script: echo Done !!!
+  displayName: 'Done testing'
